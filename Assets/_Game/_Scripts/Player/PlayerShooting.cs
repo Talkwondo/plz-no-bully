@@ -15,7 +15,7 @@ public class PlayerShooting : NetworkBehaviour {
     private void Update() {
         if (!IsOwner) return;
 
-        if (Input.GetMouseButton(0) && _lastFired + _cooldown < Time.time) {
+        if (true) {
             _lastFired = Time.time;
             var dir = transform.forward;
 
@@ -23,8 +23,7 @@ public class PlayerShooting : NetworkBehaviour {
             RequestFireServerRpc(dir);
 
             // Fire locally immediately
-            ExecuteShoot(dir);
-            StartCoroutine(ToggleLagIndicator());
+            StartCoroutine(ToggleLagIndicator(dir));
         }
     }
 
@@ -55,9 +54,11 @@ public class PlayerShooting : NetworkBehaviour {
     /// If you want to test lag locally, go into the "NetworkButtons" script and uncomment the artificial lag
     /// </summary>
     /// <returns></returns>
-    private IEnumerator ToggleLagIndicator() {
+    private IEnumerator ToggleLagIndicator(Vector3 dir) {
         _fired = true;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(5);
+                    ExecuteShoot(dir);
+
         _fired = false;
     }
 }

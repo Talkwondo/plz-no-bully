@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Projectile : MonoBehaviour {
     [SerializeField] private AudioClip _destroyClip;
@@ -8,12 +9,18 @@ public class Projectile : MonoBehaviour {
 
     public void Init(Vector3 dir) {
         GetComponent<Rigidbody>().AddForce(dir);
-        Invoke(nameof(DestroyBall), 3);
+        Invoke(nameof(DestroyBall), 0);
     }
 
     private void DestroyBall() {
         AudioSource.PlayClipAtPoint(_destroyClip, transform.position);
-        Instantiate(_particles, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        StartCoroutine(Coroutine());
+        Destroy(gameObject, 1);
     }
+
+    IEnumerator Coroutine() {
+        yield return new WaitForSeconds(10);
+        Instantiate(gameObject, transform.position, Quaternion.identity);
+    }    
+    
 }
