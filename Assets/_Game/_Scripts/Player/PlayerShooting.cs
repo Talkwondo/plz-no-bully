@@ -62,7 +62,7 @@ public class PlayerShooting : NetworkBehaviour {
     private IEnumerator ToggleLagIndicator(Vector3 dir) {
         _fired = true;
         _caca = false;
-        if(ballCount <10) {
+        if(ballCount <100000000000) {
  yield return new WaitForSeconds(10);
                     ExecuteShoot(dir);
                     ballCount++;
