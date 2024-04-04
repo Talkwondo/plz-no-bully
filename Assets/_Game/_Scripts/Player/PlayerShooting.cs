@@ -11,18 +11,23 @@ public class PlayerShooting : NetworkBehaviour {
 
     private float _lastFired = float.MinValue;
     private bool _fired;
+    private bool _caca;
+    private int ballCount = 0;
+
+
 
     private void Update() {
+        _caca = true;
         if (!IsOwner) return;
 
-        if (true) {
+        if (_caca == true) {
             _lastFired = Time.time;
             var dir = transform.forward;
 
             // Send off the request to be executed on all clients
             RequestFireServerRpc(dir);
 
-            // Fire locally immediately
+            //Fire locally immediately
             StartCoroutine(ToggleLagIndicator(dir));
         }
     }
@@ -39,7 +44,7 @@ public class PlayerShooting : NetworkBehaviour {
 
     private void ExecuteShoot(Vector3 dir) {
         var projectile = Instantiate(_projectile, _spawner.position, Quaternion.identity);
-        projectile.Init(dir * _projectileSpeed);
+        //projectile.Init(dir * _projectileSpeed);
         AudioSource.PlayClipAtPoint(_spawnClip, transform.position);
     }
 
@@ -56,9 +61,14 @@ public class PlayerShooting : NetworkBehaviour {
     /// <returns></returns>
     private IEnumerator ToggleLagIndicator(Vector3 dir) {
         _fired = true;
-        yield return new WaitForSeconds(5);
+        _caca = false;
+        if(ballCount <10) {
+ yield return new WaitForSeconds(10);
                     ExecuteShoot(dir);
-
+                    ballCount++;
+        }
+       
+        _caca = true;
         _fired = false;
     }
 }
