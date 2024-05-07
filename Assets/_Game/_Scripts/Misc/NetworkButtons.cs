@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class NetworkButtons : MonoBehaviour {
     private void OnGUI() {
-        print("scrren");
-        print(Screen.width);
-        print(Screen.height);
         GUILayout.BeginArea(new Rect((Screen.width/2)-600, (Screen.height/2)+300, 1200, 1200));
         if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
             if (GUILayout.Button("rip and tear")) NetworkManager.Singleton.StartHost();

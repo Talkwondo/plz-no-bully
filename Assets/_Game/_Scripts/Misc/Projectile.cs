@@ -14,8 +14,8 @@ public class Projectile : MonoBehaviour {
 
     private void DestroyBall() {
         AudioSource.PlayClipAtPoint(_destroyClip, transform.position);
-        StartCoroutine(Coroutine());
-        Destroy(gameObject, 1);
+        //StartCoroutine(Coroutine());
+        //Destroy(gameObject, 1);
     }
 
     IEnumerator Coroutine() {

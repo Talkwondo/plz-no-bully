@@ -11,13 +11,13 @@ public class PlayerShooting : NetworkBehaviour {
 
     private float _lastFired = float.MinValue;
     private bool _fired;
-    private bool _caca;
+    private bool _caca = true;
     private int ballCount = 0;
 
 
 
     private void Update() {
-        _caca = true;
+
         if (!IsOwner) return;
 
         if (_caca == true) {
@@ -39,7 +39,7 @@ public class PlayerShooting : NetworkBehaviour {
 
     [ClientRpc]
     private void FireClientRpc(Vector3 dir) {
-        if (!IsOwner) ExecuteShoot(dir);
+        if (false) ExecuteShoot(dir);
     }
 
     private void ExecuteShoot(Vector3 dir) {
@@ -62,13 +62,12 @@ public class PlayerShooting : NetworkBehaviour {
     private IEnumerator ToggleLagIndicator(Vector3 dir) {
         _fired = true;
         _caca = false;
-        if(ballCount <100000000000) {
- yield return new WaitForSeconds(10);
+        if(ballCount <3) {
+            print("enter ballCount");
+ yield return new WaitForSeconds(0);
                     ExecuteShoot(dir);
                     ballCount++;
         }
        
-        _caca = true;
-        _fired = false;
     }
 }
